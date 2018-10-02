@@ -4,21 +4,19 @@ import java.util.Random;
 
 public class Genetico {
 
-	//NOSSA CARGA
+	
 	static int[] carga = {};
 	
-	//EXEMPLO DE CARGA DE AULA = {5,10,15,3,10,5,2,16,9,7}
-	
 	public static void main(String[] args) {
-		int [][]populacao = new int[5][11];
-		int [][]intermediaria = new int[5][11];
+		int [][]populacao = new int[5][17];
+		int [][]intermediaria = new int[5][17];
 		
 		popular(populacao);
 		
 		for (int i=0;i<5;i++) {
 			System.out.println("Geracao " + i);
 			aptidar(populacao);
-			printPopulacao(populacao,11);
+			printPopulacao(populacao,17);
 	
 			elitizar(populacao, intermediaria);
 
@@ -50,7 +48,7 @@ public class Genetico {
 				intermediaria[linha][j] = populacao[pai][j];
 				intermediaria[linha+1][j] = populacao[mae][j];
 			}
-			for (int j=5; j<10; j++) {
+			for (int j=5; j<17; j++) {
 				intermediaria[linha][j] = populacao[mae][j];
 				intermediaria[linha+1][j] = populacao[pai][j];
 			}
@@ -63,13 +61,13 @@ public class Genetico {
 		Random r = new Random();
 		int primeiro = r.nextInt(5);
 		int segundo = r.nextInt(5);
-		return (populacao[primeiro][10] < populacao[segundo][10]) ? primeiro : segundo;
+		return (populacao[primeiro][17] < populacao[segundo][17]) ? primeiro : segundo;
 	}
 	
 	static void elitizar(int [][]populacao, int [][]intermediaria) {
 		int indexMenor = 0;
 		for (int i=0; i<5; i++) {
-			if (populacao[i][10] < populacao[indexMenor][10]) {
+			if (populacao[i][17] < populacao[indexMenor][17]) {
 				indexMenor = i;
 			}
 		}
@@ -78,17 +76,17 @@ public class Genetico {
 	
 	static void aptidar(int [][]populacao) {
 		for (int i=0; i<5; i++) {
-			for (int j=0; j<10; j++) {
-				populacao[i][10] += (populacao[i][j]==1) ? carga[j] : -carga[j] ;
+			for (int j=0; j<17; j++) {
+				populacao[i][17] += (populacao[i][j]==1) ? carga[j] : -carga[j] ;
 			}
-			populacao[i][10] = Math.abs(populacao[i][10]);
+			populacao[i][17] = Math.abs(populacao[i][17]);
 		}
 	}
 
 	static void popular(int [][]populacao) {
 		Random r = new Random();
 		for (int i=0; i<5; i++)
-			for (int j=0; j<10; j++) {
+			for (int j=0; j<17; j++) {
 				populacao[i][j] = r.nextInt(2);
 			}
 	}
