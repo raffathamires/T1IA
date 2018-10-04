@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 import java.util.Random;
-
 import model.SacoDeMoedas;
 
 public class Genetico {
@@ -21,20 +20,56 @@ public class Genetico {
 
 		popular(populacao);
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			System.out.println("Geracao " + i);
 			aptidar(populacao);
 			printPopulacao(populacao, 17);
 
 			elitizar(populacao, intermediaria);
 
+			mutar(populacao);
 			gerar(populacao, intermediaria);
+			
+			
 		}
 	}
+
+	private static void mutar(int[][] populacao) {
+		Random r = new Random();
+		int mutacao =0;
+		int posicao = 0;
+		int bau = 0;
+		
+		for(int i =0; i < 5; i++) {
+			mutacao = r.nextInt(2);
+				if(mutacao == 1) {
+					
+						posicao = r.nextInt(16);
+						if(populacao[i][posicao] == 0)
+						{
+							do{	bau = r.nextInt(4);	}while (bau == 0);
+						}
+						if(populacao[i][posicao] == 1)
+						{
+							do{	bau = r.nextInt(4);	}while (bau == 1);
+						}
+						if(populacao[i][posicao] == 2)
+						{
+							do{	bau = r.nextInt(4);	}while (bau == 2);
+						}
+						if(populacao[i][posicao] == 3)
+						{
+							do{	bau = r.nextInt(4);	}while (bau == 3);
+						}
+					}
+				}
+		}
+		
 
 	private static void iniciarCarga(List<SacoDeMoedas> sacosDeMoedas) {
 
 		// PARA PEGAR OS VALORES DO SACO DE MOEDA E GERAR A CARGA
+		//carga = ... 
 
 	}
 
@@ -77,8 +112,6 @@ public class Genetico {
 		int primeiro = r.nextInt(4);
 		int segundo = r.nextInt(4);
 		return (populacao[primeiro][16] > populacao[segundo][16]) ? primeiro : segundo;
-
-		// fazer o torneio, pegar metade e mudar os pares por impares e os impares por pares
 	}
 
 	static void elitizar(int[][] populacao, int[][] intermediaria) {
@@ -124,6 +157,11 @@ public class Genetico {
 			if (total / 4 == bau3) {
 				cont++;
 			}
+			
+			bau0 = 0;
+			bau1 = 0;
+			bau2 = 0;
+			bau3 = 0;
 
 			populacao[i][16] = cont;
 		}
