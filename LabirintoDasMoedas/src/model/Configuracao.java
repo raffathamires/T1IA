@@ -13,6 +13,10 @@ public class Configuracao {
 	private int quantidadeDeBuracos;
 	private int quantidadeDeSacosDeMoedas;
 	private int quantidadeMaximaDeMoedas;
+	private int quantidadeMinimaDeMoedasNecessariasEmCadaBau;
+	private int alcanceVisaoAgente;
+	private int sleepTime;
+	private int maximoDeTentativas;
 	
 	private List<EstrategiaMuro> estrategiasMuro;
 
@@ -23,6 +27,10 @@ public class Configuracao {
 
 	public void configuracaoPadrao() {
 		this.tamanhoX = 10;
+		this.alcanceVisaoAgente = 2;
+		this.sleepTime = 400;
+		this.maximoDeTentativas = 10;
+		
 		configuracaoProporcionalAoTamanhoX();
 		criaEstrategiasMuro();
 	}
@@ -35,6 +43,7 @@ public class Configuracao {
 		this.quantidadeDeBuracos = (tamanhoX + tamanhoY) / 4;
 		this.quantidadeDeSacosDeMoedas = quantidadeDeBaus * 4;
 		this.quantidadeMaximaDeMoedas = quantidadeDeSacosDeMoedas * 50;
+		this.quantidadeMinimaDeMoedasNecessariasEmCadaBau = 40;
 	}
 
 	public void criaEstrategiasMuro() {
@@ -123,4 +132,37 @@ public class Configuracao {
 	public void setQuantidadeMaximaDeMoedas(int quantidadeMaximaDeMoedas) {
 		this.quantidadeMaximaDeMoedas = quantidadeMaximaDeMoedas;
 	}
+	
+	public int getQuantidadeMinimaDeMoedasNecessariasEmCadaBau() {
+		return quantidadeMinimaDeMoedasNecessariasEmCadaBau;
+	}
+
+	public void setQuantidadeMinimaDeMoedasNecessariasEmCadaBau(int quantidadeMinimaDeMoedasNecessariasEmCadaBau) {
+		this.quantidadeMinimaDeMoedasNecessariasEmCadaBau = quantidadeMinimaDeMoedasNecessariasEmCadaBau;
+	}
+
+	public int getAlcanceVisaoAgente() {
+		return alcanceVisaoAgente;
+	}
+
+	public void setAlcanceVisaoAgente(int alcanceVisaoAgente) {
+		this.alcanceVisaoAgente = alcanceVisaoAgente;
+	}
+
+	public int getSleepTime() {
+		return sleepTime;
+	}
+
+	public void setSleepTime(int sleepTime) {
+		this.sleepTime = sleepTime;
+	}
+
+	public int getMaximoDeTentativas() {
+		return maximoDeTentativas;
+	}
+
+	public void setMaximoDeTentativas(int maximoDeTentativas) {
+		this.maximoDeTentativas = maximoDeTentativas;
+	}
+	
 }

@@ -20,6 +20,16 @@ public class Bau extends Objeto {
 		this.sacosDeMoeda = sacosDeMoeda;
 	}
 	
+	public int getQuantidadeTotalDeMoedas() {
+		int quantidadeTotal = 0;
+
+		for (SacoDeMoedas saco : sacosDeMoeda) {
+			quantidadeTotal += saco.getQuantidadeDeMoedas();
+		}
+		
+		return quantidadeTotal;
+	}
+	
 	@Override
 	public String toString() {
 		return "B";
