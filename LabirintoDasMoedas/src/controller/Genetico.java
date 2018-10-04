@@ -6,12 +6,18 @@ import model.SacoDeMoedas;
 
 public class Genetico {
 
-	static int[] carga = { 40, 50, 70, 40, 60, 70, 40, 50, 60, 20, 40, 50, 60, 30, 40, 50, 10 };
+	// CARGA DE TESTES 
+	//static int[] carga = { 40, 50, 70, 40, 60, 70, 40, 50, 60, 50, 40, 50, 60, 30, 40, 50 };
+	
+	static int[] carga;
 
 	static int bau0 = 0;
 	static int bau1 = 0;
 	static int bau2 = 0;
 	static int bau3 = 0;
+	static int primeiros = 0;
+	static int segundos = 0;
+	
 	static int total = 0;
 
 	public static void main(String[] args) {
@@ -20,51 +26,18 @@ public class Genetico {
 
 		popular(populacao);
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 			System.out.println("Geracao " + i);
 			aptidar(populacao);
+			
 			printPopulacao(populacao, 17);
 
 			elitizar(populacao, intermediaria);
 
-			mutar(populacao);
 			gerar(populacao, intermediaria);
-			
 			
 		}
 	}
-
-	private static void mutar(int[][] populacao) {
-		Random r = new Random();
-		int mutacao =0;
-		int posicao = 0;
-		int bau = 0;
-		
-		for(int i =0; i < 5; i++) {
-			mutacao = r.nextInt(2);
-				if(mutacao == 1) {
-					
-						posicao = r.nextInt(16);
-						if(populacao[i][posicao] == 0)
-						{
-							do{	bau = r.nextInt(4);	}while (bau == 0);
-						}
-						if(populacao[i][posicao] == 1)
-						{
-							do{	bau = r.nextInt(4);	}while (bau == 1);
-						}
-						if(populacao[i][posicao] == 2)
-						{
-							do{	bau = r.nextInt(4);	}while (bau == 2);
-						}
-						if(populacao[i][posicao] == 3)
-						{
-							do{	bau = r.nextInt(4);	}while (bau == 3);
-						}
-					}
-				}
-		}
-		
 
 	private static void iniciarCarga(List<SacoDeMoedas> sacosDeMoedas) {
 
@@ -111,13 +84,13 @@ public class Genetico {
 		Random r = new Random();
 		int primeiro = r.nextInt(4);
 		int segundo = r.nextInt(4);
-		return (populacao[primeiro][16] > populacao[segundo][16]) ? primeiro : segundo;
+		return (populacao[primeiro][16] < populacao[segundo][16]) ? primeiro : segundo;
 	}
 
 	static void elitizar(int[][] populacao, int[][] intermediaria) {
 		int indexMenor = 0;
 		for (int i = 0; i < 5; i++) {
-			if (populacao[i][16] > populacao[indexMenor][16]) {
+			if (populacao[i][16] < populacao[indexMenor][16]) {
 				indexMenor = i;
 			}
 		}
@@ -127,7 +100,6 @@ public class Genetico {
 	static void aptidar(int[][] populacao) {
 		for (int i = 0; i < 5; i++) {
 			populacao[i][16] = 0;
-			int cont = 0;
 			for (int j = 0; j < 16; j++) {
 				if (populacao[i][j] == 0) {
 					bau0 += carga[j];
@@ -143,27 +115,18 @@ public class Genetico {
 				}
 			}
 
-			total = bau0 + bau1 + bau2 + bau3;
-
-			if (total / 4 == bau0) {
-				cont++;
-			}
-			if (total / 4 == bau1) {
-				cont++;
-			}
-			if (total / 4 == bau2) {
-				cont++;
-			}
-			if (total / 4 == bau3) {
-				cont++;
-			}
+			primeiros = Math.abs(bau0 - bau1);
+			segundos = Math.abs(bau2 - bau3);
+			
+			total = Math.abs(primeiros-segundos);
 			
 			bau0 = 0;
 			bau1 = 0;
 			bau2 = 0;
 			bau3 = 0;
 
-			populacao[i][16] = cont;
+			//Adiciona na última posição
+			populacao[i][16] = total;
 		}
 	}
 
